@@ -1,0 +1,322 @@
+//Rock Paper Scissors Lizard Spock
+//Part 1
+//Get input from the player as being one of the five choices
+//Get the computer to randomly choose a move
+
+//part 2
+//create a menu
+//modify stats to print percentages
+//
+
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
+
+int getRandomComputer(void);
+int getPlayerChoice(void);
+int getWinner(int computerC, int playerC); //R = 1, P = 2, S = 3, L = 4, Spock = 5
+void printStats(int playerWins, int computerWins, int ties);
+char menuA(void); //choses what the player wishes to do
+char menuB(void); //choses which computer the player wishes to play against.
+int getAIchoice(int r, int p, int s, int l, int spock);
+
+int main(void)
+{
+
+  srand(time(0));
+  int computerWins = 0, playerWins = 0, ties = 0;
+  int playerChoice, computerChoice; //R = 1, P = 2, S = 3, L = 4, Spock = 5
+  int winner;
+  
+  int numberOfGames =0;
+
+  char control, control2;
+/*  do
+  {
+    printf("Please enter the number (greater than zero) of games you wish to play: ");
+    scanf("%d", &numberOfGames);
+    getchar();
+  }
+
+  while(numberOfGames <= 0);
+  */
+  do
+  {
+    control = menuA();
+    if (control == 'a')
+    {
+      control2 = menuB();
+      if (control2 == 'a')
+      {
+             
+
+
+
+  for (control = 0 ; control < numberOfGames ; control++)
+  {
+    playerChoice = getPlayerChoice();
+    computerChoice = getRandomComputer();
+    winner = getWinner(computerChoice, playerChoice);
+
+    if(winner == 0)
+      computerWins++;
+    else if (winner == 1)
+      playerWins++;
+    else if (winner == -1)
+      ties++;
+    
+  }
+
+  printStats(playerWins, computerWins, ties);
+
+  return 0;
+}
+
+char menuA(void)
+{
+  char choice;
+
+  printf("Please enter your choice of game.\n");
+  printf("A: Play a game against the computer.\n");
+  printf("B: Print the stats for the games so far.\n");
+  printf("Q: quit the game.\n");
+  printf("\nYour Choice: ");
+
+  choice = getchar();
+  while( getchar != '\n')
+    continue;
+
+  switch (choice)
+  {
+    case 'a':
+    case 'A':
+    {
+      return 'a';
+      break;
+    }
+    case 'b':
+    case 'B':
+    {
+      return 'b';
+      break;
+    }
+    case 'q':
+    case 'Q':
+    {
+      return 'q';
+      break;
+    }
+    default:
+      return 'a';//default to playing a game.
+  }
+}
+
+char menuB(void)
+{
+  char choice;
+  
+  printf("Please enter which computer opponent you wish to play against.\n");
+  printf("A: Play a game against the random computer.\n");
+  printf("B: Play a game against the learning AI.\n");
+  printf("\nYour Choice: ");
+
+  choice = getchar();
+  while( getchar != '\n')
+    continue;
+  
+  switch (choice)
+  {
+    case 'a':
+    case 'A':
+    {
+      return 'a';
+      break;
+    }
+    case 'b':
+    case 'B':
+    {
+      return 'b';
+      break;
+    }
+    default:
+      return a; //defalt to play against random
+  }
+}
+  
+int getRandomComputer(void)
+{
+  int output;
+  output = rand()%5;
+  output++;
+  return output;
+}
+
+int getPlayerChoice(void)
+{
+  char choice[10];
+  while(1)
+  {
+    printf("Please enter your choice for this round.\n");
+    printf("The choices are Rock, Paper, Scissors, Lizard and Spock");
+    printf("\nChoice:\t");
+
+    fgets(choice, 10, stdin);
+
+  //  printf("%s", choice);
+
+    if (!(strcmp(choice, "Rock\n")))
+      return 1;
+    else if (!strcmp(choice, "Paper\n"))
+      return 2;
+    else if (!strcmp(choice, "Scissors\n"))
+      return 3;
+    else if (!strcmp(choice, "Lizard\n"))
+      return 4;
+    else if (!strcmp(choice,  "Spock\n"))
+      return 5;
+    else
+      printf("Please enter a valid choice. Note that capitalization maters.");
+  }
+}
+
+int getWinner(int computerC, int playerC) //R = 1, P = 2, S = 3, L = 4, Spock = 5
+{
+
+  //printf("The player chose %d\n", playerC);
+ // printf("The computer chose %d\n", computerC);
+
+  if (computerC == playerC)
+  {
+    printf("This was a tie.\n");
+    return -1; //tie
+  }
+  
+  if ((computerC == 1) && (playerC == 3))
+  {
+    printf("Rock crushes scissors.\n");
+    return 0;
+  }
+
+  if ((computerC == 1) && (playerC == 4))
+  {
+    printf("Rock crushes Lizard.\n");
+    return 0;
+  }
+
+  if ((computerC == 2) && (playerC == 1))
+  {
+    printf("Paper covers Rock.\n");
+    return 0;
+  }
+
+  if ((computerC == 2) && (playerC == 5))
+  {
+    printf("Paper disproves Spock.\n");
+    return 0;
+  }
+
+  if ((computerC == 3) && (playerC == 2))
+  {
+    printf("Scissors cuts Paper.\n");
+    return 0;
+  }
+
+  if ((computerC == 3) && (playerC == 4))
+  {
+    printf("Scissors decapitates Lizard.\n");
+    return 0;
+  }
+
+  if ((computerC == 4) && (playerC == 2))
+  {
+    printf("Lizard eats Paper.\n");
+    return 0;
+  }
+
+  if ((computerC == 4) && (playerC == 5))
+  {
+    printf("Lizard poisons Spock.\n");
+    return 0;
+  }
+
+  if ((computerC == 5) && (playerC == 1))
+  {
+    printf("Spock vaporizes Rock.\n");
+    return 0;
+  }
+
+  if ((computerC == 5) && (playerC == 3))
+  {
+    printf("Spock smashes Scissors.\n");
+    return 0;
+  }
+
+  if ((computerC == 3) && (playerC == 1))
+  {
+    printf("Rock crushes scissors.\n");
+    return 1;
+  }
+
+  if ((computerC == 4) && (playerC == 1))
+  {
+    printf("Rock crushes Lizard.\n");
+    return 1;
+  }
+
+  if ((computerC == 1) && (playerC == 2))
+  {
+    printf("Paper covers Rock.\n");
+    return 1;
+  }
+
+  if ((computerC == 5) && (playerC == 2))
+  {
+    printf("Paper disproves Spock.\n");
+    return 1;
+  }
+
+  if ((computerC == 2) && (playerC == 3))
+  {
+    printf("Scissors cuts Paper.\n");
+    return 1;
+  }
+
+  if ((computerC == 4) && (playerC == 3))
+  {
+    printf("Scissors decapitates Lizard.\n");
+    return 1;
+  }
+
+  if ((computerC == 2) && (playerC == 4))
+  {
+    printf("Lizard eats Paper.\n");
+    return 1;
+  }
+
+  if ((computerC == 5) && (playerC == 4))
+  {
+    printf("Lizard poisons Spock.\n");
+    return 1;
+  }
+
+  if ((computerC == 1) && (playerC == 5))
+  {
+    printf("Spock vaporizes Rock.\n");
+    return 1;
+  }
+
+  if ((computerC == 3) && (playerC == 5))
+  {
+    printf("Spock smashes Scissors.\n");
+    return 1;
+  }
+}
+
+void printStats(int playerWins, int computerWins, int ties)
+{
+  printf("Stats for %d games.\n", (playerWins + computerWins + ties));
+  printf("The human player won %d times.\n", playerWins);
+  printf("The computer player won %d times.\n", computerWins);
+  printf("There were %d ties.\n", ties);
+}
